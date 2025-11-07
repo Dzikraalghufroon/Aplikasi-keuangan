@@ -151,6 +151,8 @@ void menu_utama() {
   FILE *fp = fopen("pos_anggaran.txt", "r");
 
   int validasi;
+
+  bool menu = true;
   if (fp == NULL) {
     tambah_pos_anggaran(true);
   }
@@ -164,35 +166,40 @@ void menu_utama() {
 
   fclose(fp);
 
-  clearScreenANSI();
+  while (menu) {
+    clearScreenANSI();
 
-  header();
+    header();
 
-  printf("=========================== MENU UTAMA ===========================");
-  printf(" \n");
-  printf("     1. Pencatatan Pos Anggaran\n");
-  printf("     2. Pencatatan Transaksi\n");
-  printf("     3. Perhitungan & Analisis Keuangan\n");
-  printf("     4. Kesimpulan Kondisi Mahasiswa\n");
-  printf("     5. Tampilkan laporan keuangan\n");
-  printf("     0. Keluar\n");
-  printf("==================================================================");
-  printf("\n \tPilih menu (0-4): ");
-  /*
-        perulangan untuk memvalidasi jawaban
-    */
-  while (true) {
-    scanf(" %d", &validasi);
-    getchar();
-    if (validasi == 0) {
-      printf("_______________________________________");
-      printf("\n|Tidak ada perubahan. Program selesai.|\n");
-      break;
-    } else if (validasi == 1) {
-      tambah_pos_anggaran(false);
-      break;
-    } else {
-      printf("Mohon Pilih menu hanya (0-4): ");
+    printf(
+        "=========================== MENU UTAMA ===========================");
+    printf(" \n");
+    printf("     1. Pencatatan Pos Anggaran\n");
+    printf("     2. Pencatatan Transaksi\n");
+    printf("     3. Perhitungan & Analisis Keuangan\n");
+    printf("     4. Kesimpulan Kondisi Mahasiswa\n");
+    printf("     5. Tampilkan laporan keuangan\n");
+    printf("     0. Keluar\n");
+    printf(
+        "==================================================================");
+    printf("\n \tPilih menu (0-4): ");
+    /*
+          perulangan untuk memvalidasi jawaban
+      */
+    while (true) {
+      scanf(" %d", &validasi);
+      getchar();
+      if (validasi == 0) {
+        printf("_______________________________________");
+        printf("\n|Tidak ada perubahan. Program selesai.|\n");
+        menu = false;
+        break;
+      } else if (validasi == 1) {
+        tambah_pos_anggaran(false);
+        break;
+      } else {
+        printf("Mohon Pilih menu hanya (0-4): ");
+      }
     }
   }
 }
