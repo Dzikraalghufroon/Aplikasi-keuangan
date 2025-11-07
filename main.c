@@ -78,7 +78,7 @@ void tambah_pos_anggaran(bool message) {
              data.pos);
       printf("Tekan ENTER untuk melanjutkan...");
       getchar();
-      continue; // kembali ke awal loop tanpa menulis
+      continue;
     }
     /*
         User melakukan input untuk batas anggaran
@@ -92,13 +92,12 @@ void tambah_pos_anggaran(bool message) {
              data.batas_nominal);
       printf("Tekan ENTER untuk melanjutkan...");
       getchar();
-      continue; // kembali ke awal loop tanpa menulis
+      continue;
     }
 
     /*
     menyimpan data ke dalam file pos_anggaran.txt
     */
-    // simpan ke file
     FILE *fp = fopen("pos_anggaran.txt", "a");
     if (fp == NULL) {
       printf("Gagal membuka file untuk menulis!\n");
@@ -144,7 +143,49 @@ void tambah_pos_anggaran(bool message) {
       }
     }
   }
-  // fclose(fp);
+}
+
+void menu_pos_anggaran() {
+  bool menu = true;
+  int validasi;
+  while (menu) {
+    clearScreenANSI();
+
+    header();
+
+    printf("======================= MENU POS ANGGARAN =======================");
+    printf(" \n");
+    printf("     1. Tambah Pos Anggaran\n");
+    printf("     2. Edit Pos Anggaran\n");
+    printf("     3. Hapus Pos Anggaran\n");
+    printf("     0. Keluar\n");
+    printf(
+        "==================================================================");
+    printf("\n \tPilih menu (0-3): ");
+    /*
+          perulangan untuk memvalidasi jawaban
+      */
+    while (true) {
+      scanf(" %d", &validasi);
+      getchar();
+      if (validasi == 0) { // jika user input 0 maka program akan kembali ke menu utama
+        menu = false;
+        break;
+      } else if (validasi == 1) { // jika user input 1 maka program akan masuk ke modul tambah pos anggaran
+        tambah_pos_anggaran(false);
+        break;
+      } else if (validasi == 2) { // jika user input 2 maka program akan masuk ke modul edit pos anggaran
+        tambah_pos_anggaran(false);
+        break;
+      } else if (validasi == 3) { // jika user input 3 maka program akan masuk ke modul hapus pos anggaran
+        tambah_pos_anggaran(false);
+        break;
+      }
+      else {
+        printf("Mohon Pilih menu hanya (0-3): ");
+      }
+    }
+  }
 }
 
 void menu_utama() {
