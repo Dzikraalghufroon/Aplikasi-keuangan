@@ -1,4 +1,11 @@
+# Abaikan pengaturan VS Code
 .vscode/
 
-*.txt
+# Abaikan file hasil build / compile
 main
+*.out
+*.exe
+*.o
+
+# Abaikan file teks sementara
+*.txt
