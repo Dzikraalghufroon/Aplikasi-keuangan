@@ -31,9 +31,11 @@ void header() {
 }
 
 void menu_utama() {
-  int validasi;
+  int navigasi;
 
   bool menu = true;
+
+  //jika file yang menyimpan pos anggaran belum ada atau masih kosong
   if (file_kosong("pos_anggaran.txt")) {
     tambah_pos_anggaran(true);
 }
@@ -56,17 +58,17 @@ void menu_utama() {
         "==================================================================");
     printf("\n \tPilih menu (0-5): ");
     /*
-          perulangan untuk memvalidasi jawaban
+          perulangan untuk navigasi 
       */
     while (true) {
-      scanf(" %d", &validasi);
+      scanf(" %d", &navigasi);
       getchar();
-      if (validasi == 0) {
+      if (navigasi == 0) {
         printf("____________________");
         printf("\n|Program selesai.|\n");
         menu = false;
         break;
-      } else if (validasi == 1) {
+      } else if (navigasi == 1) {
         menu_pos_anggaran();
         break;
       } else {

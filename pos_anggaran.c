@@ -245,7 +245,7 @@ void hapus_pos_anggaran() {
 
 void menu_pos_anggaran() {
   bool menu = true;
-  int validasi;
+  int navigasi;
   while (menu) {
     clearScreen();
 
@@ -261,24 +261,24 @@ void menu_pos_anggaran() {
         "==================================================================");
     printf("\n \tPilih menu (0-3): ");
     /*
-          perulangan untuk memvalidasi jawaban
+          perulangan untuk navigasi 
       */
     while (true) {
-      scanf(" %d", &validasi);
+      scanf(" %d", &navigasi);
       getchar();
-      if (validasi ==
+      if (navigasi ==
           0) { // jika user input 0 maka program akan kembali ke menu utama
         menu = false;
         break;
-      } else if (validasi == 1) { // jika user input 1 maka program akan masuk
+      } else if (navigasi == 1) { // jika user input 1 maka program akan masuk
                                   // ke modul tambah pos anggaran
         tambah_pos_anggaran(false);
         break;
-      } else if (validasi == 2) { // jika user input 2 maka program akan masuk
+      } else if (navigasi == 2) { // jika user input 2 maka program akan masuk
                                   // ke modul edit pos anggaran
         edit_pos_anggaran();
         break;
-      } else if (validasi == 3) { // jika user input 3 maka program akan masuk
+      } else if (navigasi == 3) { // jika user input 3 maka program akan masuk
                                   // ke modul hapus pos anggaran
         hapus_pos_anggaran();
         break;
