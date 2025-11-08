@@ -122,6 +122,8 @@ void tambah_pos_anggaran(bool message) {
       }
     }
 }
+
+// procedure untuk mengedit pos anggaran
 void edit_pos_anggaran() {
     FILE *fp = fopen("pos_anggaran.txt", "r");
     FILE *EDIT = fopen("Temp_pos_anggaran.txt", "w");
@@ -192,6 +194,7 @@ void edit_pos_anggaran() {
     getchar();
 }
 
+// procedure untuk menghapus pos anggaran
 void hapus_pos_anggaran() {
     FILE *fp = fopen("pos_anggaran.txt", "r");
     FILE *EDIT = fopen("Temp_pos_anggaran.txt", "w");
