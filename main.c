@@ -4,7 +4,6 @@
 #include "header.h"
 
 void tambah_pos_anggaran(bool message);
-// void edit_pos_anggaran();
 void menu_pos_anggaran();
 
 void menu_transaksi();
@@ -12,6 +11,7 @@ void menu_transaksi();
 void menu_utama();
 
 int main() {
+
   menu_utama();
   return 0;
 }
@@ -24,7 +24,7 @@ bool file_kosong(const char *namaFile) {
 }
 
 
-void clearScreen() { printf("\033[2J\033[H"); }
+void clearScreen() { printf("\033[2J\033[H"); }//membersihkan layar
 void header() {
   printf("╔════════════════════════════════════════════════════════════════════"
          "══════════════════════════════╗\n");
@@ -79,7 +79,7 @@ void menu_utama() {
         menu_transaksi();
         break;
       } else {
-        printf("Mohon Pilih menu hanya (0-4): ");
+        printf("Mohon Pilih menu hanya (0-5): ");
       }
     }
   }

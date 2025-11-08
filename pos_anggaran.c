@@ -1,8 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include "header.h"
-
 
 void tambah_pos_anggaran(bool message) {
   struct PosAnggaran data;
@@ -12,7 +11,7 @@ void tambah_pos_anggaran(bool message) {
   bool alert = false;
   /*
    *  perulangan untuk mengisi data pos anggaran
-  */
+   */
   while (mengisi) {
 
     clearScreen(); // membersihkan layar
@@ -32,7 +31,7 @@ void tambah_pos_anggaran(bool message) {
 
     /*
      *  Periksa apakah pos sudah ada di file
-    */
+     */
     bool sudah_ada = false;
     FILE *cekFile = fopen("pos_anggaran.txt", "r");
     if (cekFile != NULL) {
@@ -61,7 +60,7 @@ void tambah_pos_anggaran(bool message) {
     }
     /*
      *  User melakukan input untuk batas anggaran
-    */
+     */
     printf("\tMasukkan batas anggaran: ");
     scanf(" %f", &data.batas_nominal);
     getchar();
@@ -76,7 +75,7 @@ void tambah_pos_anggaran(bool message) {
 
     /*
      *menyimpan data ke dalam file pos_anggaran.txt
-    */
+     */
     FILE *fp = fopen("pos_anggaran.txt", "a");
     if (fp == NULL) {
       printf("Gagal membuka file untuk menulis!\n");
@@ -129,6 +128,9 @@ void edit_pos_anggaran() {
   struct PosAnggaran data;
   char namaCari[50];
   bool success = false;
+  struct PosAnggaran array_pos_anggaran[100];
+  int panjangArray_posAnggaran = 0;
+  int nomor = 1;
 
   if (!fp || !EDIT) {
     printf("Gagal membuka file!\n");
@@ -142,10 +144,13 @@ void edit_pos_anggaran() {
   printf("| No   | Pos Anggaran                   | Batas Nominal    |\n");
   printf("+------+--------------------------------+------------------+\n");
 
-  int nomor = 1;
-  while (fscanf(fp, "%[^|]|%f\n", data.pos, &data.batas_nominal) == 2) {
-    printf("| %-4d | %-30s | %16.2f |\n", nomor, data.pos, data.batas_nominal);
-    nomor++;
+  // memanggil procedure getPos_anggaran untuk mendapatkan data dari file
+  // pos_anggaran
+  getPos_anggaran(array_pos_anggaran, &panjangArray_posAnggaran);
+
+  for (int i = 0; i < panjangArray_posAnggaran; i++) {
+    printf("| %-4d | %-30s | %16.2f |\n", i + 1, array_pos_anggaran[i].pos,
+           array_pos_anggaran[i].batas_nominal);
   }
   printf("+------+--------------------------------+------------------+\n");
 
@@ -156,23 +161,23 @@ void edit_pos_anggaran() {
   fgets(namaCari, sizeof(namaCari), stdin);
   namaCari[strcspn(namaCari, "\n")] = '\0';
 
-  //melakukan proses pengeditan
+  // melakukan proses pengeditan
   while (fscanf(fp, "%[^|]|%f\n", data.pos, &data.batas_nominal) == 2) {
-  //jika ditemukan data yang cocok maka data batas nominal yang sebelumnya akan di 
-  //ganti dengan yang baru
+    // jika ditemukan data yang cocok maka data batas nominal yang sebelumnya
+    // akan di ganti dengan yang baru
     if (strcmp(data.pos, namaCari) == 0) {
       success = true;
       printf("Masukkan batas nominal baru: ");
       scanf("%f", &data.batas_nominal);
     }
-  //melakukan proses menulis ke sebuah file yang akan menampung data baru
+    // melakukan proses menulis ke sebuah file yang akan menampung data baru
     fprintf(EDIT, "%s|%.2f\n", data.pos, data.batas_nominal);
   }
 
   fclose(fp);
   fclose(EDIT);
 
-  //menghapus file lama untuk diganti oleh file baru
+  // menghapus file lama untuk diganti oleh file baru
   remove("pos_anggaran.txt");
   rename("Temp_pos_anggaran.txt", "pos_anggaran.txt");
 
@@ -193,6 +198,9 @@ void hapus_pos_anggaran() {
   struct PosAnggaran data;
   char namaCari[50];
   bool success = false;
+  struct PosAnggaran array_pos_anggaran[100];
+  int panjangArray_posAnggaran = 0;
+  int nomor = 1;
 
   if (!fp || !EDIT) {
     printf("Gagal membuka file!\n");
@@ -206,11 +214,15 @@ void hapus_pos_anggaran() {
   printf("| No   | Pos Anggaran                   | Batas Nominal    |\n");
   printf("+------+--------------------------------+------------------+\n");
 
-  int nomor = 1;
-  while (fscanf(fp, "%[^|]|%f\n", data.pos, &data.batas_nominal) == 2) {
-    printf("| %-4d | %-30s | %16.2f |\n", nomor, data.pos, data.batas_nominal);
-    nomor++;
+  // memanggil procedure getPos_anggaran untuk mendapatkan data dari file
+  // pos_anggaran
+  getPos_anggaran(array_pos_anggaran, &panjangArray_posAnggaran);
+
+  for (int i = 0; i < panjangArray_posAnggaran; i++) {
+    printf("| %-4d | %-30s | %16.2f |\n", i + 1, array_pos_anggaran[i].pos,
+           array_pos_anggaran[i].batas_nominal);
   }
+
   printf("+------+--------------------------------+------------------+\n");
 
   // Kembali ke awal file untuk proses edit
@@ -261,7 +273,7 @@ void menu_pos_anggaran() {
         "==================================================================");
     printf("\n \tPilih menu (0-3): ");
     /*
-          perulangan untuk navigasi 
+          perulangan untuk navigasi
       */
     while (true) {
       scanf(" %d", &navigasi);
@@ -287,4 +299,23 @@ void menu_pos_anggaran() {
       }
     }
   }
+}
+
+/*
+ * Menyimpan data yang ada di file pos anggaran ke dalam array
+ */
+void getPos_anggaran(struct PosAnggaran arr[], int *jumlah) {
+  FILE *readFile = fopen("pos_anggaran.txt", "r");
+  if (!readFile) {
+    printf("File pos_anggaran.txt tidak ditemukan!\n");
+    *jumlah = 0;
+    return;
+  }
+  *jumlah = 0;
+  while (fscanf(readFile, "%49[^|]|%f\n", arr[*jumlah].pos,
+                &arr[*jumlah].batas_nominal) == 2) {
+    (*jumlah)++;
+  }
+
+  fclose(readFile);
 }

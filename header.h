@@ -15,6 +15,9 @@ struct Transaksi {
 
 bool file_kosong(const char *namaFile);
 
+
+void getPos_anggaran(struct PosAnggaran *arr, int *jumlah);
+
 void clearScreen(); 
 
 void header();
