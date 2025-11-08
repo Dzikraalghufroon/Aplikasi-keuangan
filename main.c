@@ -11,6 +11,14 @@ int main() {
   menu_utama();
   return 0;
 }
+bool file_kosong(const char *namaFile) {
+    FILE *fp = fopen(namaFile, "r");
+    if (!fp) return true;
+    int c = fgetc(fp);
+    fclose(fp);
+    return (c == EOF);
+}
+
 
 void clearScreen() { printf("\033[2J\033[H"); }
 void header() {
@@ -23,23 +31,12 @@ void header() {
 }
 
 void menu_utama() {
-  FILE *fp = fopen("pos_anggaran.txt", "r");
-
   int validasi;
 
   bool menu = true;
-  if (fp == NULL) {
+  if (file_kosong("pos_anggaran.txt")) {
     tambah_pos_anggaran(true);
-  }
-
-  int c = fgetc(fp);
-
-  if (c == EOF) {
-    fclose(fp);
-    tambah_pos_anggaran(true);
-  }
-
-  fclose(fp);
+}
 
   while (menu) {
     clearScreen();
@@ -57,7 +54,7 @@ void menu_utama() {
     printf("     0. Keluar\n");
     printf(
         "==================================================================");
-    printf("\n \tPilih menu (0-4): ");
+    printf("\n \tPilih menu (0-5): ");
     /*
           perulangan untuk memvalidasi jawaban
       */

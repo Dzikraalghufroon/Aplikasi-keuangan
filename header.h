@@ -11,8 +11,9 @@ struct Transaksi {
     char pos[50];
     float nominal;
     char tanggal[20];
-} transaksi[100];
+};
 
+bool file_kosong(const char *namaFile);
 
 void clearScreen(); 
 
