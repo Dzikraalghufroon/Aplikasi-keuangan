@@ -7,5 +7,10 @@ main
 *.exe
 *.o
 
+pos_anggaran
+*.out
+*.exe
+*.o
+
 # Abaikan file teks sementara
 *.txt
