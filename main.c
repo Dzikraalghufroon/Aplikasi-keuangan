@@ -4,9 +4,13 @@
 #include "header.h"
 
 void tambah_pos_anggaran(bool message);
-void edit_pos_anggaran();
-void menu_utama();
+// void edit_pos_anggaran();
 void menu_pos_anggaran();
+
+void menu_transaksi();
+
+void menu_utama();
+
 int main() {
   menu_utama();
   return 0;
@@ -70,6 +74,9 @@ void menu_utama() {
         break;
       } else if (navigasi == 1) {
         menu_pos_anggaran();
+        break;
+      }else if (navigasi == 2) {
+        menu_transaksi();
         break;
       } else {
         printf("Mohon Pilih menu hanya (0-4): ");
