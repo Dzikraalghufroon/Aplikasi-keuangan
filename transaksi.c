@@ -84,7 +84,7 @@ void pencatatan_transaksi(bool pemasukan) {
         printf("+------+--------------------------------+------------------+\n");
 
     }
-    else {
+    else {// tampilan jika User ingin menginput Pemasukan
         printf("\n#____________________________________________Pemasukan____________________________________________#\n");
         printf("\n+-Silahkan input nominal dari Pemasukan anda-+\n\n");
         printf("+-Pemasukan harus bilangan positif ( >0 )-+\n");
