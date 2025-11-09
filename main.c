@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "header.h"
 
 void tambah_pos_anggaran(bool message);
@@ -24,14 +25,17 @@ bool file_kosong(const char *namaFile) {
 }
 
 
-void clearScreen() { printf("\033[2J\033[H"); }//membersihkan layar
+void clearScreen() {
+#ifdef _WIN322
+    system("cls");
+#else
+    system("clear");
+#endif
+}
 void header() {
-  printf("╔════════════════════════════════════════════════════════════════════"
-         "══════════════════════════════╗\n");
-  printf("║                                 APLIKASI KEUANGAN MAHASISWA        "
-         "                              ║\n");
-  printf("╚════════════════════════════════════════════════════════════════════"
-         "══════════════════════════════╝\n");
+  printf("|==================================================================================================|\n");
+  printf("|                                 APLIKASI KEUANGAN MAHASISWA                                      |\n");
+  printf("|==================================================================================================|\n");
 }
 
 void menu_utama() {

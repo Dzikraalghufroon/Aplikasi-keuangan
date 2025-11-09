@@ -12,5 +12,10 @@ pos_anggaran
 *.exe
 *.o
 
+transaksi
+*.out
+*.exe
+*.o
+
 # Abaikan file teks sementara
 *.txt
