@@ -159,7 +159,7 @@ void edit_pos_anggaran() {
     // Kembali ke awal file untuk proses edit
     rewind(fp);
 
-    printf("Masukkan nama pos yang ingin diubah: ");
+    printf("Masukkan nama pos yang nominalnya ingin diubah: ");
     fgets(namaCari, sizeof(namaCari), stdin);
     namaCari[strcspn(namaCari, "\n")] = '\0';
 
