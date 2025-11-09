@@ -67,19 +67,29 @@ void pencatatan_transaksi(bool pemasukan) {
     char kode_transaksi[10];
     clearScreen();
     header();
-    printf("\n================= DAFTAR POS ANGGARAN ===================\n\n");
-    printf("+------+--------------------------------+------------------+\n");
-    printf("| No   | Pos Anggaran                   | Batas Nominal    |\n");
-    printf("+------+--------------------------------+------------------+\n");
 
-    //menampilkan seluruh data yang telah diambil dari procedure getPos_anggaran
-    for (int i = 0; i < panjangArray_posAnggaran; i++) {
-        printf("| %-4d | %-30s | %16.2f |\n", i + 1, array_pos_anggaran[i].pos,
-            array_pos_anggaran[i].batas_nominal);
+    //jika user ingin menginput Pengeluaran maka akan menampilkan tabel daftar pos anggaran
+    if (!pemasukan) {
+        printf("\n================= DAFTAR POS ANGGARAN ===================\n\n");
+        printf("+------+--------------------------------+------------------+\n");
+        printf("| No   | Pos Anggaran                   | Batas Nominal    |\n");
+        printf("+------+--------------------------------+------------------+\n");
+
+        //menampilkan seluruh data yang telah diambil dari procedure getPos_anggaran
+        for (int i = 0; i < panjangArray_posAnggaran; i++) {
+            printf("| %-4d | %-30s | %16.2f |\n", i + 1, array_pos_anggaran[i].pos,
+                array_pos_anggaran[i].batas_nominal);
+        }
+
+        printf("+------+--------------------------------+------------------+\n");
+
     }
-
-    printf("+------+--------------------------------+------------------+\n");
-
+    else {
+        printf("\n#____________________________________________Pemasukan____________________________________________#\n");
+        printf("\n+-Silahkan input nominal dari Pemasukan anda-+\n\n");
+        printf("+-Pemasukan harus bilangan positif ( >0 )-+\n");
+        printf("\n#_________________________________________________________________________________________________#\n");
+    }
     //inputan dari user untuk disimpan ke file
     
     if (!pemasukan) {
