@@ -3,17 +3,27 @@
 #include <string.h>
 #include "../header.h"
 
+void daftar_pos_anggaran_view(struct PosAnggaran arr[], int n);
+
+bool cekPos_anggaran(char *data);
+
+bool edit_pos_anggaran_model(char *namaCari);
+
+bool hapus_pos_anggaran_model(char *namaCari);
+
+void menu_pos_anggaran_view();
+
 void tambah_pos_anggaran(bool message) {
     struct PosAnggaran data;
 
     bool mengisi = true;
     char lanjut;
     bool alert = false;
+    bool sudah_ada = false;
     /*
     *  perulangan untuk mengisi data pos anggaran
     */
     while (mengisi) {
-
       clearScreen(); // membersihkan layar
       header();
       if (message) {
@@ -21,7 +31,6 @@ void tambah_pos_anggaran(bool message) {
             "\tmohon tambahkan pos anggaran, karena data pos anggaran belum ada "
             "\n");
       }
-
       /*
           User melakukan input untuk nama pos
       */
@@ -32,25 +41,7 @@ void tambah_pos_anggaran(bool message) {
       /*
       *  Periksa apakah pos sudah ada di file
       */
-      bool sudah_ada = false;
-      FILE *cekFile = fopen("pos_anggaran.txt", "r");
-      if (cekFile != NULL) {
-        char line[100];
-        char pos_existing[50];
-        float batas_existing;
-
-        while (fgets(line, sizeof(line), cekFile)) {
-          // format file: namaPos|batasNominal
-          if (sscanf(line, "%49[^|]|%f", pos_existing, &batas_existing) == 2) {
-            if (strcmp(pos_existing, data.pos) == 0) {
-              sudah_ada = true;
-              break;
-            }
-          }
-        }
-        fclose(cekFile);
-      }
-
+      sudah_ada = cekPos_anggaran(data.pos);
       if (sudah_ada) {
         printf("Pos '%s' sudah ada di dalam file. Silakan masukkan nama lain.\n",
               data.pos);
@@ -125,8 +116,6 @@ void tambah_pos_anggaran(bool message) {
 
 // procedure untuk mengedit pos anggaran
 void edit_pos_anggaran() {
-    FILE *fp = fopen("pos_anggaran.txt", "r");
-    FILE *EDIT = fopen("Temp_pos_anggaran.txt", "w");
     struct PosAnggaran data;
     char namaCari[50];
     bool success = false;
@@ -134,55 +123,22 @@ void edit_pos_anggaran() {
     int panjangArray_posAnggaran = 0;
     int nomor = 1;
 
-    if (!fp || !EDIT) {
-        printf("Gagal membuka file!\n");
-        return;
-    }
-
     clearScreen();
     header();
-    printf("\n=== DAFTAR POS ANGGARAN ===\n\n");
-    printf("+------+--------------------------------+------------------+\n");
-    printf("| No   | Pos Anggaran                   | Batas Nominal    |\n");
-    printf("+------+--------------------------------+------------------+\n");
 
     // memanggil procedure getPos_anggaran untuk mendapatkan data dari file
     // pos_anggaran
     getPos_anggaran(array_pos_anggaran, &panjangArray_posAnggaran);
 
-    for (int i = 0; i < panjangArray_posAnggaran; i++) {
-        printf("| %-4d | %-30s | %16.2f |\n", i + 1, array_pos_anggaran[i].pos,
-            array_pos_anggaran[i].batas_nominal);
-    }
-    printf("+------+--------------------------------+------------------+\n");
 
-    // Kembali ke awal file untuk proses edit
-    rewind(fp);
+    //memanggil procedure untuk menampilkan pos anggaran
+    daftar_pos_anggaran_view(array_pos_anggaran,panjangArray_posAnggaran);
 
     printf("Masukkan nama pos yang nominalnya ingin diubah: ");
     fgets(namaCari, sizeof(namaCari), stdin);
     namaCari[strcspn(namaCari, "\n")] = '\0';
 
-    // melakukan proses pengeditan
-    while (fscanf(fp, "%[^|]|%f\n", data.pos, &data.batas_nominal) == 2) {
-        // jika ditemukan data yang cocok maka data batas nominal yang sebelumnya
-        // akan di ganti dengan yang baru
-        if (strcmp(data.pos, namaCari) == 0) {
-            success = true;
-            printf("Masukkan batas nominal baru: ");
-            scanf("%f", &data.batas_nominal);
-        }
-        // melakukan proses menulis ke sebuah file yang akan menampung data baru
-        fprintf(EDIT, "%s|%.2f\n", data.pos, data.batas_nominal);
-    }
-
-    fclose(fp);
-    fclose(EDIT);
-
-    // menghapus file lama untuk diganti oleh file baru
-    remove("pos_anggaran.txt");
-    rename("Temp_pos_anggaran.txt", "pos_anggaran.txt");
-
+    success = edit_pos_anggaran_model(namaCari);
     if (success) {
       printf("\nData berhasil diubah!\n");
     } else {
@@ -196,58 +152,28 @@ void edit_pos_anggaran() {
 
 // procedure untuk menghapus pos anggaran
 void hapus_pos_anggaran() {
-    FILE *fp = fopen("pos_anggaran.txt", "r");
-    FILE *EDIT = fopen("Temp_pos_anggaran.txt", "w");
-    struct PosAnggaran data;
+
     char namaCari[50];
     bool success = false;
     struct PosAnggaran array_pos_anggaran[100];
     int panjangArray_posAnggaran = 0;
     int nomor = 1;
 
-    if (!fp || !EDIT) {
-      printf("Gagal membuka file!\n");
-      return;
-    }
-
     clearScreen();
     header();
-    printf("\n=== DAFTAR POS ANGGARAN ===\n\n");
-    printf("+------+--------------------------------+------------------+\n");
-    printf("| No   | Pos Anggaran                   | Batas Nominal    |\n");
-    printf("+------+--------------------------------+------------------+\n");
-
     // memanggil procedure getPos_anggaran untuk mendapatkan data dari file
     // pos_anggaran
     getPos_anggaran(array_pos_anggaran, &panjangArray_posAnggaran);
 
-    for (int i = 0; i < panjangArray_posAnggaran; i++) {
-      printf("| %-4d | %-30s | %16.2f |\n", i + 1, array_pos_anggaran[i].pos,
-            array_pos_anggaran[i].batas_nominal);
-    }
 
-    printf("+------+--------------------------------+------------------+\n");
-
-    // Kembali ke awal file untuk proses edit
-    rewind(fp);
+    //memanggil procedure untuk menampilkan pos anggaran
+    daftar_pos_anggaran_view(array_pos_anggaran,panjangArray_posAnggaran);
 
     printf("Masukkan nama pos yang ingin dihapus: ");
     fgets(namaCari, sizeof(namaCari), stdin);
     namaCari[strcspn(namaCari, "\n")] = '\0';
 
-    while (fscanf(fp, "%[^|]|%f\n", data.pos, &data.batas_nominal) == 2) {
-        if (strcmp(data.pos, namaCari) != 0) {
-          success = true;
-          fprintf(EDIT, "%s|%.2f\n", data.pos, data.batas_nominal);
-        }
-    }
-
-    fclose(fp);
-    fclose(EDIT);
-
-    remove("pos_anggaran.txt");
-    rename("Temp_pos_anggaran.txt", "pos_anggaran.txt");
-
+    success = hapus_pos_anggaran_model(namaCari);
     if (success) {
         printf("\nData berhasil dihapus!\n");
     } else {
@@ -257,3 +183,43 @@ void hapus_pos_anggaran() {
     printf("Tekan Enter untuk kembali...");
     getchar();
 }
+
+void menu_pos_anggaran() {
+  bool menu = true;
+  int navigasi;
+  while (menu) {
+    clearScreen();
+
+    header();
+
+    menu_pos_anggaran_view();
+    printf("\n \tPilih menu (0-3): ");
+    /*
+          perulangan untuk navigasi
+      */
+    while (true) {
+      scanf(" %d", &navigasi);
+      getchar();
+      if (navigasi ==
+          0) { // jika user input 0 maka program akan kembali ke menu utama
+        menu = false;
+        break;
+      } else if (navigasi == 1) { // jika user input 1 maka program akan masuk
+                                  // ke modul tambah pos anggaran
+        tambah_pos_anggaran(false);
+        break;
+      } else if (navigasi == 2) { // jika user input 2 maka program akan masuk
+                                  // ke modul edit pos anggaran
+        edit_pos_anggaran();
+        break;
+      } else if (navigasi == 3) { // jika user input 3 maka program akan masuk
+                                  // ke modul hapus pos anggaran
+        hapus_pos_anggaran();
+        break;
+      } else {
+        printf("Mohon Pilih menu hanya (0-3): ");
+      }
+    }
+  }
+}
+
