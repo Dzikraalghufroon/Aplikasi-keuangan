@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include "header.h"
 
-void tambah_pos_anggaran(bool message);
-void menu_pos_anggaran();
+void tambah_pos_anggaran_controller(bool message);
+void menu_pos_anggaran_controller();
 
 void menu_transaksi();
 
@@ -45,7 +45,7 @@ void menu_utama() {
 
   //jika file yang menyimpan pos anggaran belum ada atau masih kosong
   if (file_kosong("pos_anggaran.txt")) {
-    tambah_pos_anggaran(true);
+    tambah_pos_anggaran_controller(true);
 }
 
   while (menu) {
@@ -77,7 +77,7 @@ void menu_utama() {
         menu = false;
         break;
       } else if (navigasi == 1) {
-        menu_pos_anggaran();
+        menu_pos_anggaran_controller();
         break;
       }else if (navigasi == 2) {
         menu_transaksi();
