@@ -3,14 +3,8 @@
 #include <string.h>
 #include <time.h>
 #include "../../header.h"
+#include "transaksi.h"
 
-void input_pemasukan_view();
-
-void daftar_pos_anggaran_view(struct PosAnggaran arr[], int n);
-
-void getId_transaksi(char *id);
-
-bool cekPosAnggaran(char *input);
 
 void pencatatan_transaksi_controller(bool pemasukan) {
     FILE *fwrite = fopen("data_transaksi.txt", "a");

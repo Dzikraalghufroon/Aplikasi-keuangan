@@ -3,8 +3,8 @@
 #include <string.h>
 #include <time.h>
 #include "../../header.h"
+#include "transaksi.h"
 
-void pencatatan_transaksi_controller(bool pemasukan);
 
 void menu_transaksi() {
     if (file_kosong("data_transaksi.txt")) {
@@ -18,15 +18,7 @@ void menu_transaksi() {
 
         header();
 
-        printf(
-            "========================= MENU TRANSAKSI =========================");
-        printf(" \n Pilih jenis Transaksi!\n");
-        printf("     1. Pemasukan\n");
-        printf("     2. Pengeluaran\n");
-        printf("     0. Keluar\n");
-        printf(
-            "==================================================================");
-        printf("\n \tPilih menu (0-2): ");
+        
         /*
             perulangan untuk navigasi
         */

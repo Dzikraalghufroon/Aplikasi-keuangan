@@ -1,7 +1,6 @@
-# Abaikan pengaturan VS Code
+
 .vscode/
 
-# Abaikan file hasil build / compile
 main
 *.out
 *.exe
@@ -17,5 +16,6 @@ transaksi
 *.exe
 *.o
 
-# Abaikan file teks sementara
 *.txt
+
+build/
