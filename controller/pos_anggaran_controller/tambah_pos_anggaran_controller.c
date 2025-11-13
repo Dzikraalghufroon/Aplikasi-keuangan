@@ -2,12 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "../../header.h"
+#include "pos_anggaran.h"
 
-void daftar_pos_anggaran_view(struct PosAnggaran arr[], int n);
-
-bool cekPos_anggaran(char *data);
-
-void tambah_pos_anggaran_model(char *nama_pos, float nominal);
 
 void tambah_pos_anggaran_controller(bool message) {
     struct PosAnggaran data;

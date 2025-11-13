@@ -2,10 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../../header.h"
-
-void daftar_pos_anggaran_view(struct PosAnggaran arr[], int n);
-
-bool hapus_pos_anggaran_model(char *namaCari);
+#include "pos_anggaran.h"
 
 void hapus_pos_anggaran_controller() {
 
