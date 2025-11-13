@@ -22,4 +22,12 @@ void clearScreen();
 
 void header();
 
+void tambah_pos_anggaran_controller(bool message);
+
+void menu_pos_anggaran_controller();
+
+void menu_transaksi();
+
+void menu_utama();
+
 #endif
