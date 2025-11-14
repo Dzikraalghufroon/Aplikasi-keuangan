@@ -45,10 +45,10 @@ void tambah_pos_anggaran_controller(bool message) {
       *  User melakukan input untuk batas anggaran
       */
       printf("\tMasukkan batas anggaran: ");
-      scanf(" %f", &data.batas_nominal);
+      scanf(" %Lf", &data.batas_nominal);
       getchar();
       if (data.batas_nominal <= 0) {
-        printf("Anda menetapkan batas anggaran sebesar '%f', batas anggaran "
+        printf("Anda menetapkan batas anggaran sebesar '%Lf', batas anggaran "
               "harus lebih besar dari nol.\n",
               data.batas_nominal);
         printf("Tekan ENTER untuk melanjutkan...");

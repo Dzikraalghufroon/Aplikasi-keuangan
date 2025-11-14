@@ -15,7 +15,7 @@ struct Transaksi get_pemasukan() {
 
     while (fgets(line, sizeof(line), readFile)) {
         // Format file: T001|08/11/2025|Makan|Pengeluaran|10000.000000|Makan siang
-        if (sscanf(line, "%49[^|]|%49[^|]|%49[^|]|%49[^|]|%f|%49[^\n]",
+        if (sscanf(line, "%49[^|]|%49[^|]|%49[^|]|%49[^|]|%Lf|%49[^\n]",
                    dataTransaksi.kode,
                    dataTransaksi.tanggal,
                    dataTransaksi.pos,

@@ -4,7 +4,7 @@
 
 bool edit_pos_anggaran_model(char *namaCari){
     char nama_pos[50]; 
-    float nominal; 
+    long double nominal; 
     bool result = false;
     
     FILE *fp = fopen("pos_anggaran.txt", "r");
@@ -13,7 +13,7 @@ bool edit_pos_anggaran_model(char *namaCari){
         printf("Gagal membuka file!\n");
         return false;
     }
-    while (fscanf(fp, "%[^|]|%f\n", nama_pos, &nominal) == 2) {
+    while (fscanf(fp, "%[^|]|%Lf\n", nama_pos, &nominal) == 2) {
       nama_pos[strcspn(nama_pos, "\n")] = '\0'; // hapus newline
         namaCari[strcspn(namaCari, "\n")] = '\0';
         // jika ditemukan data yang cocok maka data batas nominal yang sebelumnya
@@ -21,11 +21,11 @@ bool edit_pos_anggaran_model(char *namaCari){
         if (strcmp(nama_pos, namaCari) == 0) {
             result = true;
             printf("Masukkan batas nominal baru: ");
-            scanf("%f", &nominal);
+            scanf("%Lf", &nominal);
             getchar();
         }
         // melakukan proses menulis ke sebuah file yang akan menampung data baru
-        fprintf(EDIT, "%s|%f\n", nama_pos, nominal);
+        fprintf(EDIT, "%s|%Lf\n", nama_pos, nominal);
     }
 
     fclose(fp);

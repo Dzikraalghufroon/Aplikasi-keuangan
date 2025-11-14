@@ -7,8 +7,6 @@
 
 
 void pencatatan_transaksi_controller(bool pemasukan) {
-    FILE *fwrite = fopen("data_transaksi.txt", "a");
-
     struct PosAnggaran array_pos_anggaran[100];
     
     int panjangArray_posAnggaran = 0;
@@ -69,14 +67,8 @@ void pencatatan_transaksi_controller(bool pemasukan) {
     getId_transaksi(kode_transaksi);
 
     //menyimpan inputan transaksi dari user ke dalam file
-    if (pemasukan) {
-        //menyimpan dengan format (kode transaksi | tanggal | Pos Anggaran | Jenis | Nominal | Deskripsi)
-        fprintf(fwrite, "%s|%s|%s|%s|%f|%s\n", kode_transaksi, tanggal,"Pemasukan","Pemasukan",nominal,deskripsi);
-    }
-    else {
-        //menyimpan dengan format (kode transaksi | tanggal | Pos Anggaran | Jenis | Nominal | Deskripsi)
-    fprintf(fwrite, "%s|%s|%s|%s|%f|%s\n", kode_transaksi, tanggal,pos,"Pengeluaran",nominal,deskripsi);
-    }
-    fclose(fwrite);
+
+    set_transaksi(pemasukan, kode_transaksi, tanggal,pos,nominal,deskripsi);
+
 }
 

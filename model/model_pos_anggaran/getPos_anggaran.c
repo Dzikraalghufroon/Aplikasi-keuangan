@@ -11,7 +11,7 @@ void getPos_anggaran(struct PosAnggaran arr[], int *jumlah) {
     return;
   }
   *jumlah = 0;
-  while (fscanf(readFile, "%49[^|]|%f\n", arr[*jumlah].pos,
+  while (fscanf(readFile, "%49[^|]|%Lf\n", arr[*jumlah].pos,
                 &arr[*jumlah].batas_nominal) == 2) {
     (*jumlah)++;
   }

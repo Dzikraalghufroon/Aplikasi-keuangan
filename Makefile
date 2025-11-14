@@ -1,14 +1,22 @@
 TARGET = main
 
 CC = gcc
+CFLAGS = -Wall -Wextra -Icontroller -Imodel -Iview -Iutils
 
-CFLAGS = -Wall -Wextra -Icontroller -Imodel -Iview
+SRC = \
+    main.c \
+    $(wildcard controller/*.c) \
+    $(wildcard controller/*/*.c) \
+    $(wildcard view/*.c) \
+    $(wildcard view/*/*.c) \
+    $(wildcard model/*.c) \
+    $(wildcard model/*/*.c) \
+    utils/utils.c
 
-SRC = main.c $(wildcard controller/*.c) $(wildcard view/*.c) $(wildcard controller/*/*.c) $(wildcard view/*/*.c) $(wildcard model/*/*.c) utils/utils.c utils/utils.h
+OBJ = $(SRC:.c=.o)
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
-
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) $(OBJ)

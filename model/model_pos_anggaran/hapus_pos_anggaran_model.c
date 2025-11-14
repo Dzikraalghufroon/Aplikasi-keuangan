@@ -4,7 +4,7 @@
 
 bool hapus_pos_anggaran_model(char *namaCari){
     char nama_pos[50]; 
-    float nominal; 
+    long double nominal; 
     bool result = false;
     
     FILE *fp = fopen("pos_anggaran.txt", "r");
@@ -13,10 +13,10 @@ bool hapus_pos_anggaran_model(char *namaCari){
         printf("Gagal membuka file!\n");
         return false;
     }
-    while (fscanf(fp, "%[^|]|%f\n", nama_pos, &nominal) == 2) {
+    while (fscanf(fp, "%[^|]|%Lf\n", nama_pos, &nominal) == 2) {
         if (strcmp(nama_pos, namaCari) != 0) {
           result = true;
-          fprintf(DELETE, "%s|%.2f\n", nama_pos, nominal);
+          fprintf(DELETE, "%s|%Lf\n", nama_pos, nominal);
         }
     }
 
