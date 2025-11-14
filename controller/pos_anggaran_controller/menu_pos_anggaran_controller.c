@@ -9,37 +9,36 @@ void menu_pos_anggaran_controller() {
   int navigasi;
   while (menu) {
     clearScreen();
-
     header();
 
     menu_pos_anggaran_view();
     printf("\n \tPilih menu (0-3): ");
-    /*
-          perulangan untuk navigasi
-      */
-    while (true) {
-      scanf(" %d", &navigasi);
-      getchar();
-      if (navigasi ==
-          0) { // jika user input 0 maka program akan kembali ke menu utama
+
+    scanf("%d", &navigasi);
+    getchar();
+
+    switch (navigasi) {
+    case 0:
         menu = false;
         break;
-      } else if (navigasi == 1) { // jika user input 1 maka program akan masuk
-                                  // ke modul tambah pos anggaran
+
+    case 1:
         tambah_pos_anggaran_controller(false);
         break;
-      } else if (navigasi == 2) { // jika user input 2 maka program akan masuk
-                                  // ke modul edit pos anggaran
+
+    case 2:
         edit_pos_anggaran_controller();
         break;
-      } else if (navigasi == 3) { // jika user input 3 maka program akan masuk
-                                  // ke modul hapus pos anggaran
+
+    case 3:
         hapus_pos_anggaran_controller();
         break;
-      } else {
-        printf("Mohon Pilih menu hanya (0-3): ");
-      }
+
+    default:
+        printf("Mohon Pilih menu hanya (0-3)\n");
+        getchar();
+        break;
     }
-  }
+}
 }
 

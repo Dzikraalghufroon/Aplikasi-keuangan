@@ -8,7 +8,6 @@ void menu_utama() {
   int navigasi;
 
   bool menu = true;
-
   //jika file yang menyimpan pos anggaran belum ada atau masih kosong
   if (file_kosong("pos_anggaran.txt")) {
     tambah_pos_anggaran_controller(true);
@@ -34,23 +33,24 @@ void menu_utama() {
     /*
           perulangan untuk navigasi 
       */
-    while (true) {
       scanf(" %d", &navigasi);
       getchar();
-      if (navigasi == 0) {
-        printf("____________________");
-        printf("\n|Program selesai.|\n");
-        menu = false;
-        break;
-      } else if (navigasi == 1) {
-        menu_pos_anggaran_controller();
-        break;
-      }else if (navigasi == 2) {
-        menu_transaksi();
-        break;
-      } else {
-        printf("Mohon Pilih menu hanya (0-5): ");
+      switch (navigasi) {
+        case 0:
+          printf("____________________");
+          printf("\n|Program selesai.|\n");
+          menu = false;
+          break;
+        case 1:
+          menu_pos_anggaran_controller();
+          break;
+        case 2:
+          menu_transaksi();
+          break;
+        default:
+          printf("Mohon Pilih menu hanya (0-5): ");
+          break;
       }
-    }
+    
   }
 }
