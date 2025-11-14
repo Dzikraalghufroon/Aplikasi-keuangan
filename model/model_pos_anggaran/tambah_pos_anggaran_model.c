@@ -3,6 +3,7 @@
 #include <string.h>
 
 void tambah_pos_anggaran_model(char *nama_pos, long double nominal){
+  getchar();
     FILE *fp = fopen("pos_anggaran.txt", "a");
       if (fp == NULL) {
         printf("Gagal membuka file untuk menulis!\n");

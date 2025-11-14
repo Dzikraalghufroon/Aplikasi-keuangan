@@ -14,7 +14,7 @@ void pencatatan_transaksi_controller(bool pemasukan) {
     char pos[20];
     time_t t = time(NULL);
     strftime(tanggal, sizeof(tanggal), "%d/%m/%Y", localtime(&t));
-    float nominal;
+    long double nominal;
     char deskripsi[50];
 
     char kode_transaksi[10];
@@ -49,13 +49,21 @@ void pencatatan_transaksi_controller(bool pemasukan) {
 
     while (true) {
         printf("\nMasukkan nominal : ");
-        if (scanf(" %f", &nominal) == 1 && nominal > 0) {
-            while (getchar() != '\n'); // buang sisa input
+        scanf("%Lf", &nominal);
+        while (getchar() != '\n'); // buang sisa input
+        if (validasi_nominal(nominal)) {
             break;
-        } else {
-            printf("Nominal harus bilangan positif (>0).\n");
-            while (getchar() != '\n'); // buang input salah
         }
+        else {
+            printf("Nominal harus bilangan positif (>0).\n");
+        }
+        // if (scanf(" %f", &nominal) == 1 && nominal > 0) {
+        //     while (getchar() != '\n'); // buang sisa input
+        //     break;
+        // } else {
+        //     printf("Nominal harus bilangan positif (>0).\n");
+        //     while (getchar() != '\n'); // buang input salah
+        // }
     }
 
 

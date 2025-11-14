@@ -5,7 +5,7 @@ void daftar_pos_anggaran_view(struct PosAnggaran arr[], int n);
 
 bool cekPos_anggaran(char *data);
 
-void tambah_pos_anggaran_model(char *nama_pos, float nominal);
+void tambah_pos_anggaran_model(char *nama_pos, long double nominal);
 
 void daftar_pos_anggaran_view(struct PosAnggaran arr[], int n);
 

@@ -11,7 +11,7 @@ SRC = \
     $(wildcard view/*/*.c) \
     $(wildcard model/*.c) \
     $(wildcard model/*/*.c) \
-    utils/utils.c
+    $(wildcard utils/*.c) \
 
 OBJ = $(SRC:.c=.o)
 

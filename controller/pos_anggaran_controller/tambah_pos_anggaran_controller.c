@@ -47,19 +47,16 @@ void tambah_pos_anggaran_controller(bool message) {
       printf("\tMasukkan batas anggaran: ");
       scanf(" %Lf", &data.batas_nominal);
       getchar();
-      if (data.batas_nominal <= 0) {
+      if (!validasi_nominal(data.batas_nominal)) { 
         printf("Anda menetapkan batas anggaran sebesar '%Lf', batas anggaran "
-              "harus lebih besar dari nol.\n",
-              data.batas_nominal);
-        printf("Tekan ENTER untuk melanjutkan...");
-        getchar();
-        continue;
-      }
-
+          "harus lebih besar dari nol.\n", data.batas_nominal);
+          printf("Tekan ENTER untuk melanjutkan...");
+          getchar();
+          continue;
+        }
       /*
       *menyimpan data ke dalam file pos_anggaran.txt
       */
-
       tambah_pos_anggaran_model(data.pos, data.batas_nominal);
       message = false;
 
