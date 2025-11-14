@@ -33,4 +33,8 @@ void menu_utama();
 void set_transaksi(bool pemasukan, char *kode_transaksi,char * tanggal,char *pos,long double nominal,char *deskripsi);
 
 bool validasi_nominal(long double nominal);
+
+struct Transaksi* get_all_pemasukan(int *jumlah);
+
+struct Transaksi* get_all_pengeluaran(int *jumlah);
 #endif
