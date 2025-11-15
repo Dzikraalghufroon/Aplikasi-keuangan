@@ -14,6 +14,15 @@ struct Transaksi {
     char keterangan[50];
 };
 
+struct RekapPengeluaran{
+  char pos[50];
+  long double nominal;
+  long double realisasi;
+  long double sisa;
+  int jumlah_transaksi;
+  char status[10];
+};
+
 bool file_kosong(const char *namaFile);
 
 void getPos_anggaran(struct PosAnggaran *arr, int *jumlah);

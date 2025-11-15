@@ -13,4 +13,6 @@ long double pengeluaran_total();
 long double calculate_saldo();
 
 int get_amount_spending_data();
+
+long double get_nominal_pos(const char *pos);
 #endif

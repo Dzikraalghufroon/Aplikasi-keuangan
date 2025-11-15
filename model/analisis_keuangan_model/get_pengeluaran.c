@@ -65,3 +65,29 @@ int get_amount_spending_data() {
     fclose(readFile);
     return jumlah;
 }
+
+void get_data_pengeluaran(int *jumlah, struct Transaksi data_transaksi_pengeluaran[]) {
+     FILE *readFile = fopen("data_transaksi.txt", "r");
+    if (!readFile) {
+        printf("File data_transaksi.txt tidak ditemukan!\n");
+        return;
+    }
+    char line[200];
+    *jumlah = 0;
+    while (fgets(line, sizeof(line), readFile)) {
+        char id[50], tanggal[50], pos[50], jenis[50], deskripsi[70];
+        long double nominal;
+        if (sscanf(line, "%49[^|]|%49[^|]|%49[^|]|%49[^|]|%Lf|%49[^\n]",id,tanggal,pos,jenis,&nominal,deskripsi) == 6){
+            if (strcmp(jenis, "Pengeluaran") == 0) {
+                strcpy(data_transaksi_pengeluaran[*jumlah].kode, id);
+                strcpy(data_transaksi_pengeluaran[*jumlah].tanggal, tanggal);
+                strcpy(data_transaksi_pengeluaran[*jumlah].pos, pos);
+                strcpy(data_transaksi_pengeluaran[*jumlah].jenis, jenis);
+                strcpy(data_transaksi_pengeluaran[*jumlah].keterangan, deskripsi);
+                jumlah++;
+            }
+        }
+    }
+    fclose(readFile);
+}
+
