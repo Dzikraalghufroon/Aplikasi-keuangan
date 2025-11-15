@@ -15,4 +15,6 @@ long double calculate_saldo();
 int get_amount_spending_data();
 
 long double get_nominal_pos(const char *pos);
+
+void rekap_pengeluaran(struct RekapPengeluaran *result,struct Transaksi *data,int jumlah);
 #endif
