@@ -34,5 +34,4 @@ void set_transaksi(bool pemasukan, char *kode_transaksi,char * tanggal,char *pos
 
 bool validasi_nominal(long double nominal);
 
-long double pemasukan_total();
 #endif
